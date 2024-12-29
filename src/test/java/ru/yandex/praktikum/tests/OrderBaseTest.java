@@ -78,11 +78,11 @@ public abstract class OrderBaseTest {
         }
 
         objectMainPage.clickCookieConfirmButton();
-        //о юзере
+        //данные юзера
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderAboutUserLabel()));
         objectOrderPage.addUserInfoInOrder(userName, userSurname, address, metroStation, userPhone);
-        //о аренде
+        //данные аренды
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderAboutRentingLabel()));
         objectOrderPage.addRentingInfoInOrder(rentalStartDate, rentalPeriod, scooterColor, comment);
@@ -90,15 +90,16 @@ public abstract class OrderBaseTest {
         new WebDriverWait(driver,Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderConfirmationLabel()));
         objectOrderPage.clickOrderConfirmationButton();
-        //
+        //заказ подтвержден
         new WebDriverWait(driver,Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderConfirmedLabel()));
     }
 
     @After
     public void teardown() {
+
         driver.quit();
     }
 
-    protected abstract WebDriver createWebDriver();
+    protected abstract WebDriver createWebDriver(); //для возможности создать драйвер любого типа в дочерних классах
 }

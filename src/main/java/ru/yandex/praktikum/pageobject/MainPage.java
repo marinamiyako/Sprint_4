@@ -14,9 +14,9 @@ public class MainPage {
     private final WebDriver driver;
     //локатор для куки
     private final By cookieConfirmButton = By.xpath(".//button[@class='App_CookieButton__3cvqF']");
-    //локатор для кнопки заказать сверху
+    //верхняя кнопка заказа
     private final By orderButtonTop = By.xpath(".//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']");
-    //для кнопки заказать снизу
+    //нижняя кнопка заказа
     private final By orderButtonDown = By.xpath(".//div[@class='Home_FinishButton__1_cWm']/button[text()='Заказать']");
     //вопросы о важном
     private By faqAccordionItemHeading;
@@ -32,11 +32,13 @@ public class MainPage {
     }
 
     public MainPage(WebDriver driver){
+
         this.driver = driver;
     }
 
     //куки
     public void clickCookieConfirmButton(){
+
         driver.findElement(cookieConfirmButton).click();
     }
 
@@ -49,10 +51,12 @@ public class MainPage {
         new Actions(driver).moveToElement(element).click().perform();
     }
     public WebElement getFaqAccordionItemPanel() {
+
         return driver.findElement(faqAccordionItemPanel);
     }
 
     public WebElement getFaqAccordionItemPanelText() {
+
         return driver.findElement(faqAccordionItemPanelText);
     }
 

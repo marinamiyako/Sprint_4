@@ -64,8 +64,9 @@ public abstract class FaqBaseTest {
 
     @After
     public void teardown() {
+
         driver.quit();
     }
 
-    protected abstract WebDriver createWebDriver();
+    protected abstract WebDriver createWebDriver(); //для возможности создать драйвер любого типа в дочерних классах
 }
