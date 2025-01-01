@@ -3,6 +3,7 @@ package ru.yandex.praktikum.pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class OrderPage {
     private final WebDriver driver;
@@ -24,8 +25,9 @@ public class OrderPage {
     //локаторы пря подтверждения заказа
     private final By orderConfirmationLabel = By.xpath(".//div[text() = 'Хотите оформить заказ?']"); //заголовок
     private final By orderConfirmationButton = By.xpath(".//button[text() = 'Да']"); //кнопка Да
+
     //заказ подтвержден
-    private final By orderOrderConfirmedLabel = By.className("Order_ModalHeader__3FDaJ"); //информация о заказе
+    private final By orderOrderConfirmedLabel = By.xpath(".//div[text() = 'Заказ оформлен']"); //информация о заказе
 
     //конструктор
     public OrderPage(WebDriver driver){
@@ -98,8 +100,13 @@ public class OrderPage {
 
         return orderConfirmationLabel;
     }
-    public void clickOrderConfirmationButton() {
 
+    public By getOrderConfirmationButton() {
+
+        return orderConfirmationButton;
+    }
+
+    public void clickOrderConfirmationButton() {
         driver.findElement(orderConfirmationButton).click();
     }
 

@@ -1,6 +1,7 @@
 package ru.yandex.praktikum.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import ru.yandex.praktikum.pageobject.Constants;
 import ru.yandex.praktikum.pageobject.MainPage;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
@@ -19,15 +20,15 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public abstract class FaqBaseTest {
     private WebDriver driver;
-    private final String faqAccordionItemId;
+    private final int buttonIndex;
     private final boolean faqAccordionItemPanelHiddenExpected;
     private final String faqAccordionItemPanelTextExpected;
 
     public FaqBaseTest(
-            String accordionItemId,
+            int buttonIndex,
             boolean faqAccordionItemPanelHiddenExpected,
             String faqAccordionItemPanelText){
-        this.faqAccordionItemId = accordionItemId;
+        this.buttonIndex = buttonIndex;
         this.faqAccordionItemPanelHiddenExpected = faqAccordionItemPanelHiddenExpected;
         this.faqAccordionItemPanelTextExpected = faqAccordionItemPanelText;
     }
@@ -35,8 +36,14 @@ public abstract class FaqBaseTest {
     @Parameterized.Parameters
     public static Object[][] getInputData() {
         return new Object[][] {
-                {"accordion__heading-0", false, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
-                {"accordion__heading-5", false, "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
+                {0, false, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
+                {1, false, "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
+                {2, false, "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
+                {3, false, "Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
+                {4, false, "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
+                {5, false, "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
+                {6, false, "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
+                {7, false, "Да, обязательно. Всем самокатов! И Москве, и Московской области."},
         };
     }
 
@@ -46,9 +53,9 @@ public abstract class FaqBaseTest {
     @Test
     public void checkExpandAccordion() {
         driver = createWebDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(Constants.SCOOTER_URL);
 
-        MainPage objectMainPage = new MainPage(driver, faqAccordionItemId);
+        MainPage objectMainPage = new MainPage(driver, buttonIndex);
         //куки
         objectMainPage.clickCookieConfirmButton();
         //переход к вопросам и разворачивание их

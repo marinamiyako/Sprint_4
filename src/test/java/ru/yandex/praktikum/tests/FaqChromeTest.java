@@ -6,11 +6,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class FaqChromeTest extends FaqBaseTest {
     public FaqChromeTest(
-            String accordionItemId,
+            int buttonIndex,
             boolean faqAccordionItemPanelHiddenExpected,
             String faqAccordionItemPanelText) {
         super(
-                accordionItemId,
+                buttonIndex,
                 faqAccordionItemPanelHiddenExpected,
                 faqAccordionItemPanelText);
     }

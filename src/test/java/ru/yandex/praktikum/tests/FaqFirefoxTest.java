@@ -6,11 +6,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class FaqFirefoxTest extends FaqBaseTest {
     public FaqFirefoxTest(
-            String accordionItemId,
+            int buttonIndex,
             boolean faqAccordionItemPanelHiddenExpected,
             String faqAccordionItemPanelText) {
         super(
-                accordionItemId,
+                buttonIndex,
                 faqAccordionItemPanelHiddenExpected,
                 faqAccordionItemPanelText);
     }

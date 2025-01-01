@@ -8,6 +8,7 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.praktikum.pageobject.Constants;
 import ru.yandex.praktikum.pageobject.MainPage;
 import ru.yandex.praktikum.pageobject.OrderPage;
 
@@ -54,7 +55,7 @@ public abstract class OrderBaseTest {
     public static Object[][] getInputData() {
         return new Object[][] {
                 {1, "Маша", "Пушкина", "Москва, Пушкина, 1", "Чистые пруды", "+77771234567", "12.01.2025", "сутки", "серая безысходность", "тест"},
-                {2, "Паша", "Пупкин", "Громова, 5", "Сокольники", "+77771234567", "31.12.2024", "шестеро суток", "чёрный жемчуг", "тест"}
+                {2, "Паша", "Пупкин", "Громова, 5", "Сокольники", "+77771234567", "10.02.2025", "шестеро суток", "чёрный жемчуг", "тест"}
         };
     }
 
@@ -64,7 +65,7 @@ public abstract class OrderBaseTest {
     @Test
     public void checkOrder() {
         driver = createWebDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(Constants.SCOOTER_URL);
 
         MainPage objectMainPage = new MainPage(driver);
         OrderPage objectOrderPage = new OrderPage(driver);
@@ -86,11 +87,17 @@ public abstract class OrderBaseTest {
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderAboutRentingLabel()));
         objectOrderPage.addRentingInfoInOrder(rentalStartDate, rentalPeriod, scooterColor, comment);
-        //подтверждение заказа
-        new WebDriverWait(driver,Duration.ofSeconds(3))
+
+        // подтверждение заказа
+        new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderConfirmationLabel()));
+
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderConfirmationButton()));
+
         objectOrderPage.clickOrderConfirmationButton();
-        //заказ подтвержден
+
+        //заказ оформлен
         new WebDriverWait(driver,Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(objectOrderPage.getOrderConfirmedLabel()));
     }

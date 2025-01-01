@@ -24,26 +24,29 @@ public class MainPage {
     private By faqAccordionItemPanelText;
 
     //конструктор
-    public MainPage(WebDriver driver, String accordionItemId){
+    public MainPage(
+            WebDriver driver,
+            int buttonIndex) {
         this.driver = driver;
-        this.faqAccordionItemHeading = By.xpath(".//div[@id='"+ accordionItemId +"']");
-        this.faqAccordionItemPanel = By.xpath(".//div[@aria-labelledby='"+ accordionItemId +"']");
-        this.faqAccordionItemPanelText = By.xpath(".//div[@aria-labelledby='"+ accordionItemId +"']/p");
+
+        this.faqAccordionItemHeading = By.xpath(".//div[@id='accordion__heading-"+ buttonIndex +"']");
+        this.faqAccordionItemPanel = By.xpath(".//div[@aria-labelledby='accordion__heading-"+ buttonIndex +"']");
+        this.faqAccordionItemPanelText = By.xpath(".//div[@aria-labelledby='accordion__heading-"+ buttonIndex +"']/p");
     }
 
-    public MainPage(WebDriver driver){
+    public MainPage(WebDriver driver) {
 
         this.driver = driver;
     }
 
     //куки
-    public void clickCookieConfirmButton(){
+    public void clickCookieConfirmButton() {
 
         driver.findElement(cookieConfirmButton).click();
     }
 
     //метод, вопросы о важном
-    public void clickFaqAccordionItemHeading(){
+    public void clickFaqAccordionItemHeading() {
         WebElement element = driver.findElement(faqAccordionItemHeading);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         new WebDriverWait(driver, Duration.ofSeconds(3))
